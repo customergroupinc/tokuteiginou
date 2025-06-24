@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>特定技能外国人材紹介インフォグラフィック | 株式会社カスタマーグループ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Noto Sans JPをメインフォントに、Interを数字や欧文用に設定 */
+        body {
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* 見出しや強調部分のフォント */
+        .font-headline {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-weight: 900; /* Extra Bold */
+        }
+        /* 数字を読みやすくするためのフォント設定 */
+        .font-numeric {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+        }
+        /* グラデーション背景 */
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+        /* カードの浮き上がり効果 */
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .source-link a {
+            color: #0ea5e9; /* sky-500 */
+            text-decoration: none;
+        }
+        .source-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="max-w-4xl mx-auto p-4 md:p-8">
+
+        <!-- Header -->
+        <header class="text-center mb-16">
+            <h1 class="font-headline text-3xl md:text-5xl text-sky-800 leading-tight">データで見る日本の未来と<br><span class="text-amber-600">新たな仲間</span>との出会い</h1>
+            <p class="mt-4 text-lg text-slate-600">「“外国人”ではなく、“未来を共に創る仲間”に」</p>
+            <p class="mt-2 text-sm text-slate-500">株式会社カスタマーグループが、貴社の成長を人材面から支えます。</p>
+        </header>
+
+        <!-- Section 1: The Problem (Updated with Chart.js) -->
+        <section class="mb-20 p-8 rounded-2xl bg-white shadow-lg">
+            <div class="text-center">
+                <div class="inline-block bg-red-100 text-red-800 text-sm font-bold px-3 py-1 rounded-full mb-4">課題提起</div>
+                <h2 class="font-headline text-2xl md:text-4xl">なぜ今、外国人材が必要なのか？</h2>
+                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">人手不足は、もはや他人事ではありません。特に地方や特定業種では、事業継続に関わる深刻な問題となっています。</p>
+            </div>
+
+            <div class="mt-12 flex flex-col md:flex-row items-center gap-8">
+                <div class="w-full md:w-1/2 text-center">
+                    <p class="font-headline text-red-600 text-3xl md:text-4xl leading-tight">2040年、日本の<br>労働供給は</p>
+                    <p class="font-numeric text-6xl md:text-7xl text-red-600 my-4">1,100<span class="text-4xl md:text-5xl">万人超</span></p>
+                    <p class="font-headline text-red-600 text-3xl md:text-4xl leading-tight">不足します。</p>
+                     <div class="text-xs mt-3 text-slate-500 source-link">
+                         <p>出典: <a href="https://www.works-i.com/project/future-report/2040.html" target="_blank" rel="noopener noreferrer">リクルートワークス研究所「未来予測2040」</a></p>
+                     </div>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <!-- Container to constrain chart height -->
+                    <div class="relative h-80">
+                        <canvas id="laborChart"></canvas>
+                    </div>
+                    <div class="text-xs mt-2 text-center text-slate-500 source-link">
+                        <p>
+                            出典: <a href="https://www.stat.go.jp/data/kokusei/2020/kekka.html" target="_blank" rel="noopener noreferrer">令和2年国勢調査</a> (～2020年), <br class="sm:hidden">
+                            <a href="https://www.ipss.go.jp/pp-zenkoku/j/zenkoku2017/pp_zenkoku2017.asp" target="_blank" rel="noopener noreferrer">国立社会保障・人口問題研究所「日本の将来推計人口」</a> (2025年～)
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 text-center p-6 bg-sky-100 border-l-4 border-sky-500 rounded-r-lg">
+                <p class="font-bold text-sky-800 text-xl">その課題、即戦力となる<span class="text-amber-600 text-2xl">「特定技能」</span>人材が解決します！</p>
+            </div>
+        </section>
+
+        <!-- Section 2: The Solution -->
+        <section class="mb-20">
+            <div class="text-center">
+                <div class="inline-block bg-sky-100 text-sky-800 text-sm font-bold px-3 py-1 rounded-full mb-4">解決策</div>
+                <h2 class="font-headline text-2xl md:text-4xl">特定技能制度とは？</h2>
+                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">専門性と日本語能力を持つ、即戦力人材のための国の制度です。</p>
+            </div>
+
+            <div class="mt-10 grid md:grid-cols-2 gap-8 text-center">
+                <div class="gradient-bg p-6 rounded-xl shadow-md feature-card">
+                    <h3 class="font-headline text-xl text-sky-900">人材の条件</h3>
+                    <p class="flex items-center justify-center mt-4 text-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 mr-2 text-green-600"><path d="M20 6 9 17l-5-5"/></svg>技能試験 合格</p>
+                    <p class="flex items-center justify-center mt-2 text-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 mr-2 text-green-600"><path d="M20 6 9 17l-5-5"/></svg>日本語能力 (N4/A2以上)</p>
+                </div>
+                <div class="gradient-bg p-6 rounded-xl shadow-md feature-card">
+                    <h3 class="font-headline text-xl text-sky-900">在留期間</h3>
+                    <p class="mt-4 text-lg"><strong>特定技能1号:</strong> 最長 <span class="font-numeric text-3xl">5</span> 年</p>
+                    <p class="mt-2 text-lg"><strong>特定技能2号:</strong> 実質 <span class="font-numeric text-3xl">無期限</span></p>
+                </div>
+            </div>
+            
+            <div class="mt-10 p-6 bg-white rounded-xl shadow-md">
+                 <h3 class="font-headline text-xl text-center text-sky-900">対象は16業種</h3>
+                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4 text-sm text-center">
+                     <div class="bg-slate-100 p-2 rounded">介護</div>
+                     <div class="bg-slate-100 p-2 rounded">ビルクリーニング</div>
+                     <div class="bg-slate-100 p-2 rounded">工業製品製造業</div>
+                     <div class="bg-slate-100 p-2 rounded">建設</div>
+                     <div class="bg-slate-100 p-2 rounded">造船・船用工業</div>
+                     <div class="bg-slate-100 p-2 rounded">宿泊</div>
+                     <div class="bg-slate-100 p-2 rounded">自動車整備</div>
+                     <div class="bg-slate-100 p-2 rounded">航空</div>
+                     <div class="bg-slate-100 p-2 rounded">自動車運送</div>
+                     <div class="bg-slate-100 p-2 rounded">鉄道</div>
+                     <div class="bg-slate-100 p-2 rounded">農業</div>
+                     <div class="bg-slate-100 p-2 rounded">飲食料品製造</div>
+                     <div class="bg-slate-100 p-2 rounded">外食</div>
+                     <div class="bg-slate-100 p-2 rounded">漁業</div>
+                     <div class="bg-slate-100 p-2 rounded">林業</div>
+                     <div class="bg-slate-100 p-2 rounded">木材</div>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Registered Support Organization -->
+        <section class="mb-20">
+            <div class="text-center">
+                <div class="inline-block bg-indigo-100 text-indigo-800 text-sm font-bold px-3 py-1 rounded-full mb-4">登録支援機関とは？</div>
+                <h2 class="font-headline text-2xl md:text-4xl">面倒な支援業務は、すべてお任せください。</h2>
+                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">本来、受入れ企業様が行う必要がある外国人材への支援業務。これらを国に代わって実施できるのが「登録支援機関」です。</p>
+            </div>
+            <div class="mt-10 p-8 bg-white rounded-xl shadow-md">
+                 <h3 class="font-headline text-xl text-center text-indigo-900 mb-6">国が定める10項目の支援業務</h3>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 text-sm">
+                    <div class="flex items-start"><div class="flex-shrink-0 w-8 h-8 mr-3 text-indigo-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 9v-2.5L16.5 12 13 15.5V13H8v-2h5zm-1-7 5 5h-5V4z"/></svg></div><div><strong class="font-bold">① 事前ガイダンス</strong><br>労働条件や活動内容、入国手続きなどを分かりやすく説明します。</div></div>
+                    <div class="flex items-start"><div class="flex-shrink-0 w-8 h-8 mr-3 text-indigo-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="m20.57 14.86-1.29-1.29a.996.996 0 0 0-1.41 0L14 17.41V4c0-.55-.45-1-1-1s-1 .45-1 1v13.41l-3.88-3.88a.996.996 0 0 0-1.41 0l-1.29 1.29c-.39.39-.39 1.02 0 1.41l6.59 6.59a.996.996 0 0 0 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41z"/></svg></div><div><strong class="font-bold">② 出入国する際の送迎</strong><br>入国時・帰国時の空港と事業所・住居間の送迎に同行します。</div></div>
+                    <div class="flex items-start"><div class="flex-shrink-0 w-8 h-8 mr-3 text-indigo-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L2 12h3v8h14v-8h3L12 3zm0 2.83L17.17 11H6.83L12 5.83zM17 18h-2v-6h-6v6H7v-7.17l5-5 5 5V18z"/></svg></div><div><strong class="font-bold">③ 住居確保・生活契約支援</strong><br>連帯保証や社宅提供、銀行口座開設、ライフライン契約などを補助します。</div></div>
+                    <div class="flex items-start"><div class="flex-shrink-0 w-8 h-8 mr-3 text-indigo-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div><div><strong class="font-bold">④ 生活オリエンテーション</strong><br>日本のルールやマナー、公共機関の利用法、災害時の対応を説明します。</div></div>
+                    <div class="flex items-start"><div class="flex-shrink-0 w-8 h-8 mr-3 text-indigo-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div><div><strong class="font-bold">⑤ 公的手続き等への同行</strong><br>必要に応じて、社会保障や税などの手続きに同行し、書類作成を補助します。</div></div>
+                    <div class="flex items-start"><div class="flex-shrink-0 w-8 h-8 mr-3 text-indigo-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM4 18V6h16v12H4zm8-10H8v2h4v2H8v2h4v2H6V8h6v2z"/></svg></div><div><strong class="font-bold">⑥ 日本語学習の機会の提供</strong><br>日本語教室の案内や、学習教材の情報を提供します。</div></div>
+                    <div class="flex items-start"><div class="flex-shrink-0 w-8 h-8 mr-3 text-indigo-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div><div><strong class="font-bold">⑦ 相談・苦情への対応</strong><br>職場や生活上の相談に対し、本人が理解できる言語で対応・助言します。</div></div>
+                    <div class="flex items-start"><div class="flex-shrink-0 w-8 h-8 mr-3 text-indigo-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div><div><strong class="font-bold">⑧ 日本人との交流促進</strong><br>地域のお祭りなど、地域住民と交流する行事の案内や参加を補助します。</div></div>
+                    <div class="flex items-start"><div class="flex-shrink-0 w-8 h-8 mr-3 text-indigo-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg></div><div><strong class="font-bold">⑨ 転職支援(人員整理等の場合)</strong><br>会社都合での契約解除時、転職先の探索や推薦状作成などを支援します。</div></div>
+                    <div class="flex items-start"><div class="flex-shrink-0 w-8 h-8 mr-3 text-indigo-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M9 11.75c0 .97.78 1.75 1.75 1.75s1.75-.78 1.75-1.75S11.72 10 10.75 10 9 10.78 9 11.75zm3.5 0c0 .97.78 1.75 1.75 1.75s1.75-.78 1.75-1.75S16.22 10 15.25 10s-1.75.78-1.75 1.75zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg></div><div><strong class="font-bold">⑩ 定期的な面談・行政機関への通報</strong><br>3ヶ月に1回以上の定期面談を実施し、問題があれば行政機関へ通報します。</div></div>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Section 4: The People -->
+        <section class="mb-20">
+            <div class="text-center">
+                <div class="inline-block bg-green-100 text-green-800 text-sm font-bold px-3 py-1 rounded-full mb-4">ご紹介する人材</div>
+                <h2 class="font-headline text-2xl md:text-4xl">なぜ、ネパール人材なのか？</h2>
+                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">私たちはネパールのブトワルに直営校を構え、勤勉で心豊かな「未来の仲間」を育てています。</p>
+            </div>
+            <div class="mt-10 grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="font-headline text-xl text-green-800 mb-4 text-center">ネパール人材 ３つの魅力</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-lg shadow feature-card"><strong>🙏 ホスピタリティ:</strong> 「お客様は神様」という文化が根付いています。</div>
+                        <div class="bg-white p-4 rounded-lg shadow feature-card"><strong>💪 勤勉さ:</strong> 家族を想い、学習意欲が高くハングリー精神が旺盛です。</div>
+                        <div class="bg-white p-4 rounded-lg shadow feature-card"><strong>🗣️ 高い語学力:</strong> 複数言語に抵抗が少なく、新しい言語の習得に積極的です。</div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-headline text-xl text-green-800 mb-4 text-center">弊社日本語学校 ３つの特長</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-lg shadow feature-card"><strong>🎓 プロ監修の教育:</strong> 質の高い独自のカリキュラムで日本語を指導します。</div>
+                        <div class="bg-white p-4 rounded-lg shadow feature-card"><strong>🛠️ 現場直結の訓練:</strong> 業界別のスキルトレーニングで即戦力を育成します。</div>
+                        <div class="bg-white p-4 rounded-lg shadow feature-card"><strong>🙇 日本の“当たり前”を指導:</strong> 挨拶・報連相・ビジネスマナーを徹底します。</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Our Promise -->
+        <section class="mb-20 p-8 rounded-2xl gradient-bg shadow-lg">
+            <div class="text-center">
+                <div class="inline-block bg-amber-100 text-amber-800 text-sm font-bold px-3 py-1 rounded-full mb-4">私たちの約束</div>
+                <h2 class="font-headline text-2xl md:text-4xl">なぜ、カスタマーグループが選ばれるのか？</h2>
+                <p class="mt-4 text-slate-700 max-w-2xl mx-auto">紹介して終わり、ではありません。貴社の“チーム”の一員として定着するまで、徹底的に伴走します。</p>
+            </div>
+            <div class="mt-12 grid md:grid-cols-2 gap-8">
+                <div class="bg-white/70 p-6 rounded-xl text-center backdrop-blur-sm border border-white flex flex-col justify-center items-center">
+                    <h3 class="font-headline text-amber-700 text-xl">圧倒的な面談頻度</h3>
+                    <div class="flex items-center justify-center gap-4 mt-4">
+                        <div class="text-center">
+                            <p class="text-sm text-slate-500">法定</p>
+                            <p class="font-numeric text-2xl">3<span class="text-base">ヶ月に</span>1<span class="text-base">回</span></p>
+                        </div>
+                        <div class="text-3xl text-slate-400 font-thin">→</div>
+                        <div class="text-center bg-amber-500 text-white p-3 rounded-lg flex flex-col justify-center">
+                            <p class="text-sm leading-tight">弊社</p>
+                            <p class="font-bold text-xl leading-none">毎月<span class="font-numeric text-4xl">1</span>回！</p>
+                        </div>
+                    </div>
+                    <p class="text-sm mt-4 text-slate-600">小さな課題も見逃さず、早期解決とモチベーション維持に繋げます。</p>
+                </div>
+                <div class="bg-white/70 p-6 rounded-xl text-center backdrop-blur-sm border border-white">
+                    <h3 class="font-headline text-amber-700 text-xl">万全のダブルサポート体制</h3>
+                     <div class="flex items-center justify-center gap-4 mt-4">
+                        <div class="w-16 h-16 rounded-full bg-sky-200 flex items-center justify-center text-xl font-bold text-sky-800">日本人</div>
+                        <div class="text-2xl font-bold text-slate-500">+</div>
+                        <div class="w-16 h-16 rounded-full bg-green-200 flex items-center justify-center text-xl font-bold text-green-800">外国人</div>
+                    </div>
+                    <p class="text-sm mt-4 text-slate-600">1社に対し2名体制で担当。言語と文化の壁をなくし、円滑な関係を築きます。</p>
+                </div>
+                <div class="bg-white/70 p-6 rounded-xl text-center backdrop-blur-sm border border-white">
+                    <h3 class="font-headline text-amber-700 text-xl">継続的な学習サポート</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 mx-auto mt-4 text-amber-600"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    <p class="text-sm mt-4 text-slate-600">独自のeラーニングで入社後もスキルアップを支援。特定技能2号取得も目指せます。</p>
+                </div>
+                <div class="bg-white/70 p-6 rounded-xl text-center backdrop-blur-sm border border-white">
+                    <h3 class="font-headline text-amber-700 text-xl">独自の福利厚生</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 mx-auto mt-4 text-amber-600"><path d="M14 12a2 2 0 1 0-4 0 2 2 0 0 0 4 0Z"/><path d="M12 21a9 9 0 0 0 9-9 9 9 0 0 0-9-9 9 9 0 0 0-9 9 9 9 0 0 0 9 9Z"/></svg>
+                    <p class="text-sm mt-4 text-slate-600">コミュニティサイトやイベント開催で日本での生活を豊かにし、定着率UPを図ります。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Merits and Demerits -->
+        <section class="mb-20">
+            <div class="text-center">
+                 <div class="inline-block bg-teal-100 text-teal-800 text-sm font-bold px-3 py-1 rounded-full mb-4">メリットと懸念点</div>
+                <h2 class="font-headline text-2xl md:text-4xl">受け入れのメリットと、懸念点への解決策</h2>
+                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">導入効果を最大化し、不安要素を最小限に抑えるためのサポート体制が整っています。</p>
+            </div>
+            <div class="mt-10 grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="font-headline text-xl text-center text-teal-800 mb-6">メリット</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-bold text-teal-700">【経営目線】</p>
+                            <ul class="list-disc list-inside text-sm text-slate-700 mt-2 space-y-1">
+                                <li><strong>人手不足の根本解消:</strong> 安定的な労働力を確保できます。</li>
+                                <li><strong>生産性・稼働率アップ:</strong> 真面目で勤勉な人材が多く、戦力化も早いです。</li>
+                                <li><strong>グローバル化への一歩:</strong> 人材の多様性を高めるきっかけになります。</li>
+                            </ul>
+                        </div>
+                        <div class="pt-4 border-t">
+                            <p class="font-bold text-teal-700">【現場目線】</p>
+                            <ul class="list-disc list-inside text-sm text-slate-700 mt-2 space-y-1">
+                                <li><strong>働きぶりが真面目で丁寧:</strong> 指示を守り、ミスを減らそうと努力します。</li>
+                                <li><strong>柔軟なシフト対応:</strong> 固定シフトや夜勤などにも対応しやすいです。</li>
+                                <li><strong>チームへの良い影響:</strong> 他のスタッフのモチベーション向上にも繋がります。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="font-headline text-xl text-center text-red-800 mb-6">懸念点と解決策</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-bold text-red-700">【経営目線の懸念】</p>
+                            <ul class="text-sm text-slate-700 mt-2 space-y-2">
+                                <li><strong class="text-red-600">初期コスト:</strong> 弊社が一括手配することで費用を抑えます。</li>
+                                <li><strong class="text-red-600">受入体制の整備:</strong> 常時相談窓口と定期面談で迅速に解決します。</li>
+                            </ul>
+                        </div>
+                        <div class="pt-4 border-t">
+                             <p class="font-bold text-red-700">【現場目線の懸念】</p>
+                            <ul class="text-sm text-slate-700 mt-2 space-y-2">
+                                <li><strong class="text-red-600">細かい指示の伝達:</strong> 継続的な教育とダブルサポートで緩和します。</li>
+                                <li><strong class="text-red-600">文化・宗教の違い:</strong> 入国前研修と定期面談で相互理解を促進します。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: The Process -->
+        <section class="mb-20">
+            <div class="text-center">
+                <div class="inline-block bg-purple-100 text-purple-800 text-sm font-bold px-3 py-1 rounded-full mb-4">受け入れまでの流れ</div>
+                <h2 class="font-headline text-2xl md:text-4xl">ご相談から入社までのフロー</h2>
+                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">最短6ヶ月で、安心して受け入れを開始できます。</p>
+            </div>
+            <div class="mt-12">
+                <div class="relative pl-8">
+                     <!-- Vertical line -->
+                    <div class="absolute left-12 top-0 bottom-0 w-0.5 bg-slate-300"></div>
+                     <!-- Steps -->
+                    <div class="relative mb-8">
+                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold font-numeric ring-8 ring-slate-50">1</div>
+                        <p class="ml-12 p-3 bg-white rounded-lg shadow-sm">打合せ・求人票作成</p>
+                    </div>
+                    <div class="relative mb-8">
+                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold font-numeric ring-8 ring-slate-50">2</div>
+                        <p class="ml-12 p-3 bg-white rounded-lg shadow-sm">人材募集・企業面接</p>
+                    </div>
+                    <div class="relative mb-8">
+                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold font-numeric ring-8 ring-slate-50">3</div>
+                        <p class="ml-12 p-3 bg-white rounded-lg shadow-sm">内定・ビザ申請 <span class="text-sm text-slate-500">(2週間～1ヶ月)</span></p>
+                    </div>
+                    <div class="relative mb-8">
+                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold font-numeric ring-8 ring-slate-50">4</div>
+                        <p class="ml-12 p-3 bg-white rounded-lg shadow-sm">入国準備 <span class="text-sm text-slate-500">(1ヶ月～2ヶ月)</span></p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 bg-amber-500 text-white rounded-full flex items-center justify-center font-bold ring-8 ring-amber-100">🎉</div>
+                        <p class="ml-12 p-3 bg-green-100 rounded-lg shadow-sm font-bold text-green-800">来日・入社 <span class="text-sm font-normal text-slate-500">(最短4ヶ月～)</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Pricing -->
+        <section class="mb-16">
+            <div class="text-center">
+                <div class="inline-block bg-blue-100 text-blue-800 text-sm font-bold px-3 py-1 rounded-full mb-4">料金プラン</div>
+                <h2 class="font-headline text-2xl md:text-4xl">明確な料金体系</h2>
+                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">複数人採用プランもご用意しております。</p>
+            </div>
+            <div class="mt-10 grid md:grid-cols-2 gap-8 items-stretch">
+                <div class="bg-white p-8 rounded-2xl shadow-lg border-2 border-sky-500 flex flex-col">
+                    <h3 class="font-headline text-2xl text-sky-800 text-center">紹介料</h3>
+                    <p class="text-center font-numeric text-5xl text-sky-800 my-4">400,000<span class="text-2xl font-sans font-normal">円/人</span></p>
+                    <p class="text-center text-slate-500 mb-6">(税抜)</p>
+                    <ul class="text-sm space-y-2 text-slate-600 flex-grow">
+                        <li class="flex"><span class="text-sky-500 mr-2">✔</span> 求人票作成</li>
+                        <li class="flex"><span class="text-sky-500 mr-2">✔</span> 求職者の募集</li>
+                        <li class="flex"><span class="text-sky-500 mr-2">✔</span> 企業面接の同席</li>
+                        <li class="flex"><span class="text-sky-500 mr-2">✔</span> 内定後のビザ申請サポート</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg border-2 border-green-500 flex flex-col">
+                     <h3 class="font-headline text-2xl text-green-800 text-center">登録支援機関<br>業務委託料</h3>
+                    <p class="text-center font-numeric text-5xl text-green-800 my-4">25,000<span class="text-2xl font-sans font-normal">円/月・人</span></p>
+                    <p class="text-center text-slate-500 mb-6">(税抜)</p>
+                    <p class="text-sm text-slate-600 flex-grow">「私たちの約束」でご紹介した、毎月の面談や継続教育、ダブルサポートなど、手厚い伴走支援のすべてが含まれます。</p>
+                </div>
+            </div>
+             <div class="mt-8 bg-slate-100 p-4 rounded-lg text-sm text-slate-700">
+                <h4 class="font-bold text-center mb-2">その他費用</h4>
+                <p><strong>ビザ申請 行政書士依頼費用:</strong> 85,000円～ (税抜) ※行政書士より直接ご請求</p>
+                <p class="mt-4 font-bold text-center text-amber-700 bg-amber-100 p-3 rounded-md">🌟 複数人採用の場合は、紹介料を別途お見積り！お気軽にご相談ください。</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center border-t pt-12 mt-12 border-slate-200">
+             <h2 class="font-headline text-2xl md:text-3xl text-sky-800">まずはお気軽にご相談ください！</h2>
+             <p class="mt-4 text-slate-600">貴社の状況に合わせた最適なプランをご提案します。</p>
+             <div class="mt-8">
+                 <a href="https://customergroup.net/contact" target="_blank" rel="noopener noreferrer" class="inline-block bg-amber-500 text-white font-bold py-4 px-10 rounded-lg text-lg hover:bg-amber-600 transition-colors shadow-lg hover:shadow-xl">お問い合わせはこちら</a>
+             </div>
+             <div class="mt-12 text-xs text-slate-400">
+                 <p class="font-bold text-base text-slate-700 mb-2">株式会社カスタマーグループ</p>
+                 <p>有料職業紹介事業許可番号：27-ユ-304653</p>
+                 <p>登録支援機関番号：25登-011670</p>
+             </div>
+        </footer>
+
+    </div>
+
+    <script>
+        const ctx = document.getElementById('laborChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['2015年', '2020年', '2025年', '2030年', '2035年', '2040年'],
+                datasets: [{
+                    label: '15～64歳人口',
+                    data: [7735, 7509, 7170, 6875, 6494, 5978],
+                    backgroundColor: 'rgba(59, 130, 246, 0.7)', // blue-500
+                    borderColor: 'rgba(29, 78, 216, 1)', // blue-700
+                    borderWidth: 1
+                },
+                {
+                    label: '65歳以上人口',
+                    data: [3379, 3603, 3677, 3716, 3782, 3921],
+                    backgroundColor: 'rgba(251, 191, 36, 0.7)', // amber-400
+                    borderColor: 'rgba(217, 119, 6, 1)', // amber-600
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '生産年齢人口と高齢者人口の推移',
+                        font: {
+                            size: 16,
+                            family: "'Noto Sans JP', sans-serif",
+                        },
+                        padding: {
+                            top: 10,
+                            bottom: 20
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += context.parsed.y.toLocaleString() + ' 万人';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString() + '万人'; // Y軸の単位
+                            }
+                        }
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+    </script>
+
+</body>
+</html>
